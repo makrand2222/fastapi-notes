@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from config.db import conn
-
+from bson import ObjectId
 
 note = APIRouter()
 
@@ -38,4 +38,9 @@ async def create_item(request: Request):
     formDict = dict(form)
     formDict["important"] = True if formDict.get("important") == "on" else False
     note = conn.notes.notes.insert_one(formDict)
-    return {"success": True}
+    return RedirectResponse("/api/", status_code=302)
+
+@note.post('/delete/{note_id}')
+async def delete_note(note_id: str):
+    conn.notes.notes.delete_one({"_id":ObjectId(note_id)})
+    return RedirectResponse("/api/", status_code=302)
