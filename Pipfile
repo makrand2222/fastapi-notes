@@ -8,6 +8,7 @@ fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 jinja2 = "*"
 pymongo = "*"
+python-multipart = "*"
 
 [dev-packages]
 
