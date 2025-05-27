@@ -22,7 +22,6 @@ async def get_root(request: Request):
                 "important": doc["important"] 
                 }
             )
-    print("newDocs: ",newDocs)
     return templates.TemplateResponse(
         "index.html", {"request": request, "newDocs": newDocs}
     )
