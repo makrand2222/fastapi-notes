@@ -37,9 +37,9 @@ async def create_item(request: Request):
     formDict = dict(form)
     formDict["important"] = True if formDict.get("important") == "on" else False
     note = conn.notes.notes.insert_one(formDict)
-    return RedirectResponse("/api/", status_code=302)
+    return RedirectResponse("/", status_code=302)
 
 @note.post('/delete/{note_id}')
 async def delete_note(note_id: str):
     conn.notes.notes.delete_one({"_id":ObjectId(note_id)})
-    return RedirectResponse("/api/", status_code=302)
+    return RedirectResponse("/", status_code=302)
